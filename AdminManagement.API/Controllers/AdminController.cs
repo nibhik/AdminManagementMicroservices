@@ -17,16 +17,16 @@ namespace AdminManagement.API.Controllers
     {
         private readonly IRepository<Department> departmentRepository;
 
-       private readonly IRepository<Admin> adminRepository;
+       //private readonly IRepository<Admin> adminRepository;
         public AdminController(IRepository<Department> departmentRepository)
         {
             this.departmentRepository = departmentRepository;
         }
 
-      public AdminController(IRepository<Admin> adminRepository)
+     /* public AdminController(IRepository<Admin> adminRepository)
         {
             this.adminRepository = adminRepository;
-        }
+        }*/
 
         [HttpPost]
         [ProducesResponseType(201)]
@@ -66,46 +66,7 @@ namespace AdminManagement.API.Controllers
             return StatusCode(204);
         }
 
-        [HttpPut("{id}")]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(200, Type = (typeof(AdminDTO)))]
-        public async Task<IActionResult> UpdateAdminPhone(int Id, [FromBody] string phoneNumber)
-        {
-            var upph = adminRepository.GetById(Id);
-            if (upph == null)
-                return NotFound();
-            upph.ChangePhoneNumber(phoneNumber);
-            adminRepository.Update(upph);
-            await adminRepository.SaveAsync();
-            return StatusCode(204);
-        }
 
-        [HttpPut("{id}")]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(200, Type = (typeof(AdminDTO)))]
-        public async Task<IActionResult> UpdateAdminAddress(int Id, [FromBody] string address)
-        {
-            var upadd = adminRepository.GetById(Id);
-            if (upadd == null)
-                return NotFound();
-            upadd.ChangeAddress(address);
-            adminRepository.Update(upadd);
-            await adminRepository.SaveAsync();
-            return StatusCode(204);
-        }
 
-        [HttpPut("{id}")]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(200, Type = (typeof(AdminDTO)))]
-        public async Task<IActionResult> UpdateAdminEmail(int Id, [FromBody] string email)
-        {
-            var upemail = adminRepository.GetById(Id);
-            if (upemail == null)
-                return NotFound();
-            upemail.ChangeEmail(email);
-            adminRepository.Update(upemail);
-            await adminRepository.SaveAsync();
-            return StatusCode(204);
-        }
     }
 }

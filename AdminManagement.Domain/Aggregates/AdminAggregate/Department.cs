@@ -39,11 +39,7 @@ namespace AdminManagement.Domain.Aggregates.AdminAggregate
             this.Consultant = newConsultant;
         }
 
-       /* public void AddDepartment(string newDepartment)
-        {
-
-        }*/
-
+       
 
 
     }
