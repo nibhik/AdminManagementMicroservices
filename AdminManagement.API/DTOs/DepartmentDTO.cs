@@ -14,6 +14,7 @@ namespace AdminManagement.API.DTOs
         [Required, StringLength(30)]
         public  string Consultant { get;  set; }
         public string DepartmentName { get;  set; }
+        public string Category { get; set; }
 
     }
 }

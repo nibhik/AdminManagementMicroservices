@@ -42,7 +42,7 @@ namespace AdminManagement.API.Tests
             Assert.IsNotNull(result);
         }
 
-        [Test]
+        
 
    /*     public async Task UpdateDepartment_Return200StatusCode()
         {

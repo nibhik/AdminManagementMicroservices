@@ -8,6 +8,6 @@ namespace AdminManagement.Domain.DomainEvents
     {
         public string Consultant { get; set; }
         public string DepartmentName { get; set; }
-        //public string Category { get; set; }
+        public string Category { get; set; }
     }
 }

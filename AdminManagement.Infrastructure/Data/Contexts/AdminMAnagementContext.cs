@@ -12,7 +12,7 @@ namespace AdminManagement.Infrastructure.Data.Contexts
         {
             
         }
-        public DbSet<Department> Departments { get; set; }
+        public DbSet<Department> Department { get; set; }
       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

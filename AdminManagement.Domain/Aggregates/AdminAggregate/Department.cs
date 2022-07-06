@@ -12,20 +12,20 @@ namespace AdminManagement.Domain.Aggregates.AdminAggregate
        // public virtual int DepartmentId { get; private set; }
         public virtual string Consultant { get; private set; }
         public virtual string DepartmentName { get; private set; }
-       // public virtual string Category { get; private set; }
+       public virtual string Category { get; private set; }
 
-        public Department(string consultant, string departmentname)
+        public Department(string consultant, string departmentname,  string category)
         {
             //this.DepartmentId = departmentId;
             this.Consultant = consultant;
             this.DepartmentName = departmentname;
-           // this.Category = category;
+            this.Category = category;
 
             var deaprtmentadded = new DepartmentCreatedEvent()
             {
                 Consultant = this.Consultant,
                 DepartmentName = this.DepartmentName,
-                //Category = this.Category
+                Category = this.Category
             };
             //base.DomainEvents.Add(deaprtmentadded);
         }

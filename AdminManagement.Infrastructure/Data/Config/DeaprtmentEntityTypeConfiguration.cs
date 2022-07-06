@@ -15,7 +15,7 @@ namespace AdminManagement.Infrastructure.Data.Config
             builder.HasKey(m => m.Id);
             builder.Property(m => m.Consultant).HasMaxLength(30).IsRequired(true);
             builder.Property(m => m.DepartmentName).HasMaxLength(50).IsRequired(true);
-            /* builder.Property(m => m.Category).HasMaxLength(30).IsRequired(true);*/
+            builder.Property(m => m.Category).HasMaxLength(30).IsRequired(true);
         }
 
     }

@@ -32,7 +32,7 @@ namespace AdminManagement.API.Controllers
         [ProducesResponseType(201)]
         public async Task<IActionResult> AddDepartment(DepartmentDTO departmentdto)
         {
-            var dept = new Department(departmentdto.DepartmentName, departmentdto.Consultant);
+            var dept = new Department(departmentdto.DepartmentName, departmentdto.Consultant, departmentdto.Category);
             departmentRepository.Add(dept);
             await departmentRepository.SaveAsync();
             return StatusCode(201, dept);
