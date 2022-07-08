@@ -38,16 +38,33 @@ namespace AdminManagement.API.Controllers
             return StatusCode(201, dept);
         }
 
+        [HttpGet]
+        [ProducesResponseType(200, Type =  typeof(List<DepartmentDTO>))]
+        public IActionResult GetDepartment()
+        {
+            var deaprtments = departmentRepository.Get();
+            var dto = from department in deaprtments
+                      select new DepartmentDTO
+                      {
+                          Id = department.Id,
+                          Consultant = department.Consultant,
+                          DepartmentName = department.DepartmentName,
+                          Category = department.Category
+
+                      };
+            return Ok(dto);
+        }
+
         [HttpPut("{Id}")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> UpdateDepartment(int Id)
+        public async Task<IActionResult> UpdateDepartment(int Id, Department department)
         {
             var depat = departmentRepository.GetById(Id);
             if (depat == null)
                 return NotFound();
+            //depat.Consultant = department.Consultant;
 
-            //departmentRepository.ChangeConsultant(newConsultant);
             departmentRepository.Update(depat);
             await departmentRepository.SaveAsync();
             return StatusCode(201);

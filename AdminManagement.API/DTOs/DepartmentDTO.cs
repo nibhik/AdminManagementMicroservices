@@ -9,7 +9,7 @@ namespace AdminManagement.API.DTOs
     public class DepartmentDTO
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [Required, StringLength(30)]
         public  string Consultant { get;  set; }
