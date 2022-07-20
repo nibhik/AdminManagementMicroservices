@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -30,57 +31,93 @@ namespace AdminManagement.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(201)]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddDepartment(DepartmentDTO departmentdto)
         {
-            var dept = new Department(departmentdto.DepartmentName, departmentdto.Consultant, departmentdto.Category);
-            departmentRepository.Add(dept);
-            await departmentRepository.SaveAsync();
-            return StatusCode(201, dept);
+            try
+            {
+                var dept = new Department(departmentdto.DepartmentName, departmentdto.Consultant, departmentdto.Category);
+                departmentRepository.Add(dept);
+                await departmentRepository.SaveAsync();
+                return StatusCode(201, dept);
+            }
+            catch(Exception)
+            {
+                return StatusCode(500);
+            }
+           
         }
 
         [HttpGet]
         [ProducesResponseType(200, Type =  typeof(List<DepartmentDTO>))]
+        [AllowAnonymous]
         public IActionResult GetDepartment()
         {
-            var deaprtments = departmentRepository.Get();
-            var dto = from department in deaprtments
-                      select new DepartmentDTO
-                      {
-                          Id = department.Id,
-                          Consultant = department.Consultant,
-                          DepartmentName = department.DepartmentName,
-                          Category = department.Category
+            try
+            {
+                var deaprtments = departmentRepository.Get();
+                var dto = from department in deaprtments
+                          select new DepartmentDTO
+                          {
+                              Id = department.Id,
+                              Consultant = department.Consultant,
+                              DepartmentName = department.DepartmentName,
+                              Category = department.Category
 
-                      };
-            return Ok(dto);
+                          };
+                return Ok(dto);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
+            
 
         [HttpPut("{Id}")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateDepartment(int Id, Department department)
         {
-            var depat = departmentRepository.GetById(Id);
-            if (depat == null)
-                return NotFound();
-            //depat.Consultant = department.Consultant;
+            try
+            {
+                var depat = departmentRepository.GetById(Id);
+                if (depat == null)
+                    return NotFound();
+                //depat.Consultant = department.Consultant;
 
-            departmentRepository.Update(depat);
-            await departmentRepository.SaveAsync();
-            return StatusCode(201);
+                departmentRepository.Update(depat);
+                await departmentRepository.SaveAsync();
+                return StatusCode(201);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+
         }
 
         [HttpDelete("{Id}")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteDepartment(int Id)
         {
-            var department = departmentRepository.GetById(Id);
-            if (department == null)
-                return NotFound();
-            departmentRepository.Remove(department);
-            await departmentRepository.SaveAsync();
-            return StatusCode(204);
+            try
+            {
+                var department = departmentRepository.GetById(Id);
+                if (department == null)
+                    return NotFound();
+                departmentRepository.Remove(department);
+                await departmentRepository.SaveAsync();
+                return StatusCode(204);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+           
         }
 
 
