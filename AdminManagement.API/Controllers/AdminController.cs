@@ -32,6 +32,8 @@ namespace AdminManagement.API.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [Authorize(Roles = "Admin")]
+        //[AllowAnonymous]
+
         public async Task<IActionResult> AddDepartment(DepartmentDTO departmentdto)
         {
             try
@@ -74,34 +76,12 @@ namespace AdminManagement.API.Controllers
         }
             
 
-        [HttpPut("{Id}")]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(200)]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateDepartment(int Id, Department department)
-        {
-            try
-            {
-                var depat = departmentRepository.GetById(Id);
-                if (depat == null)
-                    return NotFound();
-                //depat.Consultant = department.Consultant;
-
-                departmentRepository.Update(depat);
-                await departmentRepository.SaveAsync();
-                return StatusCode(201);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500);
-            }
-
-        }
 
         [HttpDelete("{Id}")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
         [Authorize(Roles = "Admin")]
+        //[AllowAnonymous]
         public async Task<IActionResult> DeleteDepartment(int Id)
         {
             try
@@ -111,7 +91,7 @@ namespace AdminManagement.API.Controllers
                     return NotFound();
                 departmentRepository.Remove(department);
                 await departmentRepository.SaveAsync();
-                return StatusCode(204);
+                return Ok();
             }
             catch (Exception)
             {
@@ -119,8 +99,5 @@ namespace AdminManagement.API.Controllers
             }
            
         }
-
-
-
     }
 }
